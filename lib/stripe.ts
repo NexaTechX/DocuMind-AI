@@ -1,10 +1,10 @@
 import { Stripe } from 'stripe';
 
 if (!process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY) {
-  throw new Error('Missing NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY');
+  console.warn('NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY environment variable is not set.');
 }
 
-export const stripe = new Stripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY, {
+export const stripe = new Stripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY || 'pk_test_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx', {
   apiVersion: '2023-10-16',
   typescript: true,
 });

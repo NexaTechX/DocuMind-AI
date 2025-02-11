@@ -1,5 +1,13 @@
 "use client";
 
+function formatFileSize(bytes: number) {
+  if (bytes === 0) return "0 B";
+  const k = 1024;
+  const sizes = ["B", "KB", "MB", "GB"];
+  const i = Math.floor(Math.log(bytes) / Math.log(k));
+  return parseFloat((bytes / Math.pow(k, i)).toFixed(1)) + " " + sizes[i];
+}
+
 import { FilePreview } from "@/components/file-preview";
 import { ShareDocument } from "@/components/share-document";
 import { Button } from "@/components/ui/button";
@@ -12,15 +20,15 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { useToast } from "@/hooks/use-toast";
-import { uploadDocument } from "@/lib/document-parser";
-import { supabase } from "@/lib/supabase";
+import { uploadDocument } from "lib/document-parser";
+import { supabase } from "lib/supabase";
 import { FileUp, Filter, LogOut, Search } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
 import { useDropzone } from "react-dropzone";
 
 export default function DashboardPage() {
-  const [documents, setDocuments] = useState([]);
+  const [documents, setDocuments] = useState<any[]>([]);
   const [uploading, setUploading] = useState(false);
   const [preview, setPreview] = useState<string>("");
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
@@ -159,7 +167,7 @@ export default function DashboardPage() {
         <div
           {...getRootProps()}
           className={`border-2 border-dashed rounded-lg p-8 text-center cursor-pointer transition-colors
-            ${isDragActive ? "border-primary bg-primary/5" : "border-border"}`}
+  ${isDragActive ? "border-primary bg-primary/5" : "border-border"}`}
         >
           <input {...getInputProps()} />
           <FileUp className="mx-auto h-12 w-12 text-muted-foreground mb-4" />
@@ -171,6 +179,12 @@ export default function DashboardPage() {
           </p>
           <p className="text-sm text-muted-foreground mt-2">
             Supports PDF, Word, and TXT files (max 10MB)
+          </p>
+          <p className="text-muted-foreground">
+            You&apos;re approaching your document limit. Consider upgrading your plan for unlimited documents.
+          </p>
+          <p className="text-muted-foreground">
+            Don&apos;t have an account?
           </p>
         </div>
 
@@ -247,12 +261,4 @@ export default function DashboardPage() {
       </main>
     </div>
   );
-}
-
-function formatFileSize(bytes: number) {
-  if (bytes === 0) return "0 B";
-  const k = 1024;
-  const sizes = ["B", "KB", "MB", "GB"];
-  const i = Math.floor(Math.log(bytes) / Math.log(k));
-  return parseFloat((bytes / Math.pow(k, i)).toFixed(1)) + " " + sizes[i];
 }

@@ -59,7 +59,7 @@ export function DocumentAnalysis({ content }: DocumentAnalysisProps) {
       }
     };
     analyze(); // Call the analyze function asynchronously
-  }, [content]); // Only re-run when content changes
+  }, [content, toast]); // Only re-run when content changes
 
   const handleGenerateSummary = async () => {
     if (!content) {
@@ -215,7 +215,8 @@ export function DocumentAnalysis({ content }: DocumentAnalysisProps) {
                 </SelectItem>
                 <SelectItem value="long" data-oid="nj7qg0g">
                   Long
-                </SelectContent>
+                </SelectItem>
+              </SelectContent>
             </Select>
             <Button
               onClick={handleGenerateSummary}

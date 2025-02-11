@@ -1,13 +1,12 @@
 "use client";
 
-import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
+import { PLANS, PRICING } from "@/lib/stripe";
 import { supabase } from "@/lib/supabase";
-import { PRICING, PLANS } from "@/lib/stripe";
 import { Check } from "lucide-react";
-import { useRouter } from "next/navigation";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
+import { useEffect, useState } from "react";
 
 export default function PricingPage() {
   const [loading, setLoading] = useState(false);
@@ -30,7 +29,7 @@ export default function PricingPage() {
         variant: "destructive",
       });
     }
-  }, [searchParams]);
+  }, [searchParams, toast]);
 
   const handleSubscribe = async (plan: keyof typeof PLANS) => {
     setLoading(true);

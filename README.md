@@ -44,12 +44,110 @@ DocuMind is designed to save you time and frustration when dealing with lengthy 
 - **Profile & Dashboard:** Manage your profile and view your documents.
 - **Session Management:** Secure session handling.
 
-### Phase 3: AI Analysis Features 🔄 (Partially Complete)
+### Phase 3: AI Analysis Features 🔄 (Partially Complete & Errors Fixed)
 
 - **Basic Document Analysis:** Automatic text extraction and summarization. ✅ (Complete)
 - **Customizable Summaries:** Options for different summary lengths. ✅ (Complete)
-- **Chat Functionality:** Ask questions and receive answers with key points. 🔄 (Partially Complete)
-- **Key Points Extraction:** Identify and extract main insights. 🔄 (Partially Complete)
+- **Chat Functionality:** Ask questions and receive answers with key points. 🔄 (Partially Complete & Errors Fixed)
+- **Key Points Extraction:** Identify and extract main insights. 🔄 (Partially Complete & Errors Fixed)
+# DocuMind AI – Document Analysis Platform
+
+DocuMind is an AI-powered tool that transforms how you interact with documents. Upload PDFs, Word files, and text documents, and chat with them to quickly extract key insights, search within content, and receive detailed answers with precise references.
+
+---
+
+## Table of Contents
+
+- [Overview](#overview)
+- [Current Features](#current-features)
+- [Planned Features & Roadmap](#planned-features--roadmap)
+- [Additional Feature Ideas](#additional-feature-ideas)
+- [Installation & Setup](#installation--setup)
+- [Usage](#usage)
+- [Contributing](#contributing)
+- [License](#license)
+- [Contact](#contact)
+
+---
+
+## Overview
+
+DocuMind is designed to save you time and frustration when dealing with lengthy academic papers, contracts, technical reports, or any text-heavy documents. By harnessing AI, DocuMind:
+
+- Quickly analyzes and summarizes documents.
+- Answers your queries with precise, context-aware results.
+- Highlights key insights and bookmarks relevant sections.
+
+---
+
+## Current Features (Completed & In Progress)
+
+### Phase 1: Core Document Management ✅ (Complete)
+
+- **File Upload:** Drag-and-drop functionality.
+- **Supported Formats:** PDF, Word, and TXT files.
+- **File Preview:** View document contents before processing.
+- **Document Deletion & Sharing:** Manage and share documents easily.
+- **Storage:** Basic document storage powered by Supabase.
+
+### Phase 2: Authentication & User Management ✅ (Complete)
+
+- **User Authentication:** Email/password-based sign-in.
+- **Profile & Dashboard:** Manage your profile and view your documents.
+- **Session Management:** Secure session handling.
+
+### Phase 2: Authentication & User Management ✅ (Complete)
+
+- **Profile & Dashboard:** Manage your profile and view your documents.
+# DocuMind AI – Document Analysis Platform
+
+DocuMind is an AI-powered tool that transforms how you interact with documents. Upload PDFs, Word files, and text documents, and chat with them to quickly extract key insights, search within content, and receive detailed answers with precise references.
+
+---
+
+## Table of Contents
+
+- [Overview](#overview)
+- [Current Features](#current-features)
+- [Planned Features & Roadmap](#planned-features--roadmap)
+- [Additional Feature Ideas](#additional-feature-ideas)
+- [Installation & Setup](#installation--setup)
+- [Usage](#usage)
+- [Contributing](#contributing)
+- [License](#license)
+- [Contact](#contact)
+
+---
+
+## Overview
+
+DocuMind is designed to save you time and frustration when dealing with lengthy academic papers, contracts, technical reports, or any text-heavy documents. By harnessing AI, DocuMind:
+
+- Quickly analyzes and summarizes documents.
+- Answers your queries with precise, context-aware results.
+- Highlights key insights and bookmarks relevant sections.
+
+---
+
+## Current Features (Completed & In Progress)
+
+### Phase 1: Core Document Management ✅ (Complete)
+
+- **File Upload:** Drag-and-drop functionality.
+- **Supported Formats:** PDF, Word, and TXT files.
+- **File Preview:** View document contents before processing.
+- **Document Deletion & Sharing:** Manage and share documents easily.
+- **Storage:** Basic document storage powered by Supabase.
+
+### Phase 2: Authentication & User Management ✅ (Complete)
+
+- **User Authentication:** Email/password-based sign-in.
+- **Profile & Dashboard:** Manage your profile and view your documents.
+- **Session Management:** Secure session handling.
+
+### Phase 2: Authentication & User Management ✅ (Complete)
+
+- **Profile & Dashboard:** Navigation links in dashboard layout ✅ (Complete)
 
 ---
 

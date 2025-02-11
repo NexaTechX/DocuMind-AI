@@ -1,15 +1,15 @@
 "use client";
 
-import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import { useToast } from "@/hooks/use-toast";
+import { PLANS, PRICING } from "@/lib/stripe";
 import { supabase } from "@/lib/supabase";
-import { PRICING, PLANS } from "@/lib/stripe";
-import { CreditCard, Package, FileBox, ArrowUpCircle } from "lucide-react";
+import { ArrowUpCircle, CreditCard, FileBox, Package } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 
 export default function BillingPage() {
   const [profile, setProfile] = useState<any>(null);
@@ -204,8 +204,10 @@ export default function BillingPage() {
                   className="bg-yellow-100 dark:bg-yellow-900/30 text-yellow-800 dark:text-yellow-200 p-3 rounded-md text-sm"
                   data-oid="vm0:_y0"
                 >
-                  You're approaching your document limit. Consider upgrading
-                  your plan for unlimited documents.
+                  <p>
+                    You&apos;re approaching your document limit. Consider
+                    upgrading your plan for unlimited documents.
+                  </p>
                 </div>
               )}
 

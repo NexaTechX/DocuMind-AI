@@ -1,9 +1,10 @@
-import * as PDFJS from 'pdfjs-dist';
 import mammoth from 'mammoth';
+import * as PDFJS from 'pdfjs-dist';
 import { supabase } from './supabase';
 
 // Initialize PDF.js worker with a more reliable CDN URL
-const PDFJS_WORKER_URL = `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/${PDFJS.version}/pdf.worker.min.js`;
+// Try a different CDN URL
+const PDFJS_WORKER_URL = `https://unpkg.com/pdfjs-dist@4.10.38/build/pdf.worker.min.js`;
 
 // Initialize PDF.js worker once
 if (typeof window !== 'undefined') {
@@ -109,28 +110,17 @@ async function parseText(file: File): Promise<{ content: string; preview: string
 }
 
 export async function uploadDocument(file: File, userId: string) {
-  try {
-    const { content, preview } = await parseDocument(file);
-    
-    // Create document record in Supabase
-    const { data, error } = await supabase
-      .from('documents')
-      .insert([
-        {
-          user_id: userId,
-          title: file.name,
-          content: content,
-          file_type: file.type,
-          file_size: file.size,
-        }
-      ])
-      .select()
-      .single();
+  const fileExt = file.name.split(".").pop();
+  const fileName = `${userId}/${Date.now()}.${fileExt}`;
+  const { data, error } = await supabase.storage
+    .from("documents")
+    .upload(fileName, file);
 
-    if (error) throw error;
-    return { data, preview };
-  } catch (error) {
-    console.error('Error uploading document:', error);
+  if (error) {
     throw error;
   }
+
+  const preview = URL.createObjectURL(file);
+
+  return { data, preview };
 }

@@ -146,7 +146,7 @@ export default function Home() {
                   data-oid="b56ndpd"
                 >
                   <FileText className="h-5 w-5" data-oid="rnublp4" />
-                  Watch Demo
+                  Try Demo
                 </Button>
               </Link>
             </div>
@@ -236,42 +236,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Chat Functionality */}
-      <section className="border-t py-24" data-oid="chat-section">
-        <div className="container mx-auto px-4" data-oid="chat-container">
-          <div className="text-center mb-16" data-oid="chat-header">
-            <h2 className="text-3xl font-bold mb-4" data-oid="chat-title">
-              Interactive Chat
-            </h2>
-            <p
-              className="text-xl text-muted-foreground max-w-2xl mx-auto"
-              data-oid="chat-description"
-            >
-              Ask questions and receive answers with key points from your
-              documents.
-            </p>
-          </div>
-          <Chat document={document} />
-        </div>
-      </section>
-
-      {/* Key Points Extraction */}
-      <section className="border-t py-24" data-oid="key-points-section">
-        <div className="container mx-auto px-4" data-oid="key-points-container">
-          <div className="text-center mb-16" data-oid="key-points-header">
-            <h2 className="text-3xl font-bold mb-4" data-oid="key-points-title">
-              Key Points Extraction
-            </h2>
-            <p
-              className="text-xl text-muted-foreground max-w-2xl mx-auto"
-              data-oid="key-points-description"
-            >
-              Identify and extract main insights from your documents.
-            </p>
-          </div>
-          <KeyPoints document={document} />
-        </div>
-      </section>
 
       {/* Social Proof Section */}
       <section className="border-t py-24" data-oid="839_767">

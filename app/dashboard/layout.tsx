@@ -18,10 +18,10 @@ import Link from "next/link";
 const sidebarItems = [
   { icon: Layout, label: "Dashboard", href: "/dashboard" },
   { icon: FileText, label: "Documents", href: "/dashboard/documents" },
-  { icon: History, label: "History", href: "/dashboard/history" },
+  { icon: History, label: "History", href: "/dashboard/analysis" },
   { icon: Users, label: "Team", href: "/dashboard/team" },
   { icon: BarChart3, label: "Analytics", href: "/dashboard/analytics" },
-  { icon: Settings, label: "Settings", href: "/dashboard/settings" },
+  { icon: Settings, label: "Settings", href: "/dashboard/billing" },
 ];
 
 export default function DashboardLayout({
@@ -32,7 +32,7 @@ export default function DashboardLayout({
   return (
     <div className="flex h-screen bg-background" data-oid="0gibdi2">
       {/* Sidebar */}
-      <aside className="w-64 border-r bg-card" data-oid="26hm7nz">
+      <aside className="w-256 border-r bg-card" data-oid="26hm7nz">
         <div
           className="flex h-16 items-center gap-2 border-b px-4"
           data-oid="w28rtl9"
@@ -75,7 +75,7 @@ export default function DashboardLayout({
             Dashboard
           </h1>
           <div className="flex items-center gap-4" data-oid="bm8kw0k">
-            <Button variant="ghost" size="sm" data-oid="fn676f5">
+            <Button variant="default" size="sm" data-oid="fn676f5">
               <LogOut className="h-4 w-4 mr-2" data-oid="9t4cl9." />
               Sign Out
             </Button>

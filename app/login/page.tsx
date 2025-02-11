@@ -1,6 +1,5 @@
 "use client";
 
-import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
@@ -8,6 +7,7 @@ import { supabase } from "@/lib/supabase";
 import { Brain } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
@@ -95,7 +95,7 @@ export default function LoginPage() {
 
           <div className="mt-6 text-center text-sm" data-oid="hx4gybc">
             <p className="text-muted-foreground" data-oid="eoz0a-5">
-              Don't have an account?{" "}
+              Don&apos;t have an account?{" "}
               <Link
                 href="/signup"
                 className="text-primary hover:underline"

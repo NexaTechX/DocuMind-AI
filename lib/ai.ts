@@ -77,8 +77,22 @@ export async function semanticSearch(query: string): Promise<any> {
 export async function queryDocument(question: string, context: string): Promise<any> {
   try {
     const semanticResults = await semanticSearch(question);
-    // Further processing of semanticResults to improve accuracy
-    return semanticResults;
+    
+    // Extract key points from semantic search results
+    const model = genAI.getGenerativeModel({ model: "gemini-pro" });
+    const prompt = `Extract key points and concise answers from the following semantic search results based on the user's question:
+
+    Question: ${question}
+    
+    Semantic Search Results:
+    ${semanticResults.text()}
+
+    Provide the key points and answers in a clear and concise manner.`;
+
+    const result = await model.generateContent(prompt);
+    const response = await result.response;
+    return response.text();
+
   } catch (error) {
     console.error("Error querying document:", error);
     throw error;
