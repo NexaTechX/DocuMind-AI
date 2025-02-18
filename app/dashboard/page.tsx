@@ -1,15 +1,6 @@
 "use client";
 
-function formatFileSize(bytes: number) {
-  if (bytes === 0) return "0 B";
-  const k = 1024;
-  const sizes = ["B", "KB", "MB", "GB"];
-  const i = Math.floor(Math.log(bytes) / Math.log(k));
-  return parseFloat((bytes / Math.pow(k, i)).toFixed(1)) + " " + sizes[i];
-}
-
 import { FilePreview } from "@/components/file-preview";
-import { ShareDocument } from "@/components/share-document";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
@@ -20,12 +11,20 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { useToast } from "@/hooks/use-toast";
-import { uploadDocument } from "lib/document-parser";
-import { supabase } from "lib/supabase";
-import { FileUp, Filter, LogOut, Search } from "lucide-react";
+import { uploadDocument } from "@/lib/document-parser";
+import { supabase } from "@/lib/supabase";
+import { FileUp, LogOut, Search } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
 import { useDropzone } from "react-dropzone";
+
+function formatFileSize(bytes: number) {
+  if (bytes === 0) return "0 B";
+  const k = 1024;
+  const sizes = ["B", "KB", "MB", "GB"];
+  const i = Math.floor(Math.log(bytes) / Math.log(k));
+  return parseFloat((bytes / Math.pow(k, i)).toFixed(1)) + " " + sizes[i];
+}
 
 export default function DashboardPage() {
   const [documents, setDocuments] = useState<any[]>([]);
@@ -90,20 +89,23 @@ export default function DashboardPage() {
       setUploading(true);
 
       try {
-        const {
-          data: { user },
-        } = await supabase.auth.getUser();
-        if (!user) throw new Error("Not authenticated");
-
-        const { data, preview } = await uploadDocument(file, user.id);
-        setPreview(preview);
-
-        toast({
-          title: "Success",
-          description: "Document uploaded successfully",
-        });
-
-        await fetchDocuments();
+        const { success, message, content, preview } = await uploadDocument(
+          file
+        );
+        if (success) {
+          setPreview(preview || "");
+          toast({
+            title: "Success",
+            description: message,
+          });
+          await fetchDocuments();
+        } else {
+          toast({
+            title: "Error",
+            description: message,
+            variant: "destructive",
+          });
+        }
       } catch (error: any) {
         toast({
           title: "Error",
@@ -153,7 +155,7 @@ export default function DashboardPage() {
 
   return (
     <div className="min-h-screen bg-background">
-      <header className="border-b">
+      <header className="bg-secondary border-b">
         <div className="container mx-auto px-4 h-16 flex items-center justify-between">
           <h1 className="text-xl font-bold">My Documents</h1>
           <Button variant="ghost" onClick={handleSignOut}>
@@ -162,29 +164,20 @@ export default function DashboardPage() {
           </Button>
         </div>
       </header>
-
-      <main className="container mx-auto px-4 py-8">
+      <main className="container mx-auto p-8">
         <div
           {...getRootProps()}
-          className={`border-2 border-dashed rounded-lg p-8 text-center cursor-pointer transition-colors
-  ${isDragActive ? "border-primary bg-primary/5" : "border-border"}`}
+          className="border-2 border-dashed rounded-lg p-8 text-center cursor-pointer transition-colors border-border hover:border-primary bg-card"
         >
           <input {...getInputProps()} />
-          <FileUp className="mx-auto h-12 w-12 text-muted-foreground mb-4" />
-
+          <FileUp className="mx-auto h-10 w-10 text-muted-foreground mb-4" />
           <p className="text-muted-foreground">
             {isDragActive
-              ? "Drop the file here"
+              ? "Drop the files here"
               : "Drag and drop a document, or click to select"}
           </p>
           <p className="text-sm text-muted-foreground mt-2">
             Supports PDF, Word, and TXT files (max 10MB)
-          </p>
-          <p className="text-muted-foreground">
-            You&apos;re approaching your document limit. Consider upgrading your plan for unlimited documents.
-          </p>
-          <p className="text-muted-foreground">
-            Don&apos;t have an account?
           </p>
         </div>
 
@@ -203,24 +196,25 @@ export default function DashboardPage() {
 
         <div className="mt-8">
           <div className="flex items-center justify-between mb-4">
-            <div className="flex items-center space-x-4 flex-1 max-w-md">
-              <div className="relative flex-1">
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-
+            <div className="flex items-center space-x-4">
+              <div className="relative">
+                <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                 <Input
+                  type="search"
                   placeholder="Search documents..."
+                  className="pl-8 h-9 w-64"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="pl-9"
                 />
               </div>
               <Select
                 value={sortBy}
-                onValueChange={(value: any) => setSortBy(value)}
+                onValueChange={(value: "date" | "name" | "size") =>
+                  setSortBy(value)
+                }
               >
-                <SelectTrigger className="w-[140px]">
-                  <Filter className="h-4 w-4 mr-2" />
-                  <SelectValue placeholder="Sort by" />
+                <SelectTrigger className="w-[180px] h-9">
+                  <SelectValue placeholder="Date" />
                 </SelectTrigger>
                 <SelectContent>
                   <SelectItem value="date">Date</SelectItem>
@@ -231,26 +225,23 @@ export default function DashboardPage() {
             </div>
           </div>
 
-          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-            {sortedDocuments.map((doc: any) => (
+          <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+            {sortedDocuments.map((doc) => (
               <div
                 key={doc.id}
-                className="border rounded-lg p-4 bg-card hover:shadow-md transition-shadow"
+                className="rounded-md border bg-secondary text-secondary-foreground shadow-sm"
               >
-                <div className="flex items-center justify-between mb-2">
-                  <h3 className="font-medium truncate flex-1 mr-4">
-                    {doc.title}
-                  </h3>
-                  <ShareDocument documentId={doc.id} />
-                </div>
-                <div className="flex items-center justify-between text-sm text-muted-foreground">
-                  <span>{new Date(doc.created_at).toLocaleDateString()}</span>
-                  <span>{formatFileSize(doc.file_size)}</span>
+                <div className="p-4">
+                  <h3 className="font-bold truncate">{doc.title}</h3>
+                  <p className="text-sm text-muted-foreground">
+                    {new Date(doc.created_at).toLocaleDateString()} -{" "}
+                    {formatFileSize(doc.file_size)}
+                  </p>
                 </div>
                 <Button
-                  variant="ghost"
-                  className="w-full mt-3"
-                  onClick={() => router.push(`/dashboard/${doc.id}`)}
+                  variant="outline"
+                  className="w-full rounded-md"
+                  onClick={() => router.push(`/document/${doc.id}`)}
                 >
                   View Document
                 </Button>

@@ -40,14 +40,11 @@ export default function DocumentPage({
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-background" data-oid="6b:c_z2">
-        <div className="container mx-auto px-4 py-8" data-oid="yovm:kp">
-          <div className="animate-pulse space-y-4" data-oid="_.uptyc">
-            <div
-              className="h-8 w-48 bg-muted rounded"
-              data-oid=":xd9awl"
-            ></div>
-            <div className="h-64 bg-muted rounded" data-oid="de_0wy."></div>
+      <div className="min-h-screen bg-background">
+        <div className="container mx-auto px-4 py-8">
+          <div className="animate-pulse space-y-4">
+            <div className="h-8 w-48 bg-muted rounded"></div>
+            <div className="h-64 bg-muted rounded"></div>
           </div>
         </div>
       </div>
@@ -56,9 +53,9 @@ export default function DocumentPage({
 
   if (error) {
     return (
-      <div className="min-h-screen bg-background" data-oid="6b:c_z2">
-        <div className="container mx-auto px-4 py-8" data-oid="yovm:kp">
-          <div className="text-red-500" data-oid="_.uptyc">
+      <div className="min-h-screen bg-background">
+        <div className="container mx-auto px-4 py-8">
+          <div className="text-red-500">
             Error loading document: {error.message}
           </div>
         </div>
@@ -66,14 +63,5 @@ export default function DocumentPage({
     );
   }
 
-
-  return (
-    
-      <DocumentPageClient
-        id={params.id}
-        initialData={document}
-        data-oid="xcd_o4-"
-      />
-    
-  );
+  return <DocumentPageClient id={params.id} initialData={document} />;
 }

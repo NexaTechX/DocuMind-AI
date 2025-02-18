@@ -46,61 +46,42 @@ export default function LoginPage() {
   };
 
   return (
-    <div
-      className="min-h-screen flex items-center justify-center bg-muted/50"
-      data-oid="5:2ycn5"
-    >
-      <div className="w-full max-w-md" data-oid="w8q_br1">
-        <div className="bg-card p-8 rounded-lg shadow-lg" data-oid="hywvxo.">
-          <div
-            className="flex items-center justify-center mb-8"
-            data-oid="266d3f9"
-          >
-            <Brain className="h-8 w-8 mr-2" data-oid="xy-2_7u" />
-            <h1 className="text-2xl font-bold" data-oid="pjv2cxb">
-              DocuMind AI
-            </h1>
+    <div className="min-h-screen flex items-center justify-center bg-muted/50">
+      <div className="w-full max-w-md">
+        <div className="bg-card p-8 rounded-lg shadow-lg">
+          <div className="flex items-center justify-center mb-8">
+            <Brain className="h-8 w-8 mr-2" />
+            <h1 className="text-2xl font-bold">DocuMind AI</h1>
           </div>
 
-          <form onSubmit={handleLogin} className="space-y-4" data-oid="7_x-9-7">
-            <div data-oid="to62wal">
+          <form onSubmit={handleLogin} className="space-y-4">
+            <div>
               <Input
                 type="email"
                 placeholder="Email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
-                data-oid="0707du5"
               />
             </div>
-            <div data-oid="lmwr954">
+            <div>
               <Input
                 type="password"
                 placeholder="Password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
-                data-oid="km5p0h-"
               />
             </div>
-            <Button
-              type="submit"
-              className="w-full"
-              disabled={loading}
-              data-oid="cqio81f"
-            >
+            <Button type="submit" className="w-full" disabled={loading}>
               {loading ? "Signing in..." : "Sign In"}
             </Button>
           </form>
 
-          <div className="mt-6 text-center text-sm" data-oid="hx4gybc">
-            <p className="text-muted-foreground" data-oid="eoz0a-5">
+          <div className="mt-6 text-center text-sm">
+            <p className="text-muted-foreground">
               Don&apos;t have an account?{" "}
-              <Link
-                href="/signup"
-                className="text-primary hover:underline"
-                data-oid="eo5bo8b"
-              >
+              <Link href="/signup" className="text-primary hover:underline">
                 Sign up
               </Link>
             </p>

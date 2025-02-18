@@ -1,0 +1,24 @@
+.chartIndicator {
+  composes: shrink-0 rounded-[2px] border-[--color-border] bg-[--color-bg] from global;
+}
+
+.chartIndicatorDot {
+  composes: chartIndicator;
+  height: 0.625rem; /* h-2.5 */
+  width: 0.625rem; /* w-2.5 */
+}
+
+.chartIndicatorLine {
+  composes: chartIndicator;
+  width: 0.25rem; /* w-1 */
+}
+
+.chartIndicatorDashed {
+  composes: chartIndicator;
+  width: 0;
+  border-width: 1.5px;
+  border-style: dashed;
+  background-color: transparent;
+  margin-top: 0.125rem; /* my-0.5 when nestLabel */
+  margin-bottom: 0.125rem;
+}

@@ -54,75 +54,51 @@ export default function SignupPage() {
   };
 
   return (
-    <div
-      className="min-h-screen flex items-center justify-center bg-muted/50"
-      data-oid="0mfsm8j"
-    >
-      <div className="w-full max-w-md" data-oid="euwl6jb">
-        <div className="bg-card p-8 rounded-lg shadow-lg" data-oid="h:9:aej">
-          <div
-            className="flex items-center justify-center mb-8"
-            data-oid="rrgee3p"
-          >
-            <Brain className="h-8 w-8 mr-2" data-oid=":dfyjg." />
-            <h1 className="text-2xl font-bold" data-oid=".h5k8l:">
-              DocuMind AI
-            </h1>
+    <div className="min-h-screen flex items-center justify-center bg-muted/50">
+      <div className="w-full max-w-md">
+        <div className="bg-card p-8 rounded-lg shadow-lg">
+          <div className="flex items-center justify-center mb-8">
+            <Brain className="h-8 w-8 mr-2" />
+            <h1 className="text-2xl font-bold">DocuMind AI</h1>
           </div>
 
-          <form
-            onSubmit={handleSignup}
-            className="space-y-4"
-            data-oid="9aa-s6x"
-          >
-            <div data-oid="nlrlvf0">
+          <form onSubmit={handleSignup} className="space-y-4">
+            <div>
               <Input
                 type="text"
                 placeholder="Full Name"
                 value={fullName}
                 onChange={(e) => setFullName(e.target.value)}
                 required
-                data-oid="0h9zcbq"
               />
             </div>
-            <div data-oid="kc9.beb">
+            <div>
               <Input
                 type="email"
                 placeholder="Email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
-                data-oid=".yqk7yb"
               />
             </div>
-            <div data-oid="vuxz0xg">
+            <div>
               <Input
                 type="password"
                 placeholder="Password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
-                data-oid="omr20o1"
               />
             </div>
-            <Button
-              type="submit"
-              className="w-full"
-              disabled={loading}
-              data-oid="zz:qgxm"
-            >
+            <Button type="submit" className="w-full" disabled={loading}>
               {loading ? "Creating account..." : "Create Account"}
             </Button>
           </form>
 
-          <div className="mt-6 text-center text-sm" data-oid="_a.evua">
-            <p className="text-muted-foreground" data-oid=":vqjoe7">
+          <div className="mt-6 text-center text-sm">
+            <p className="text-muted-foreground">
               Already have an account?{" "}
-              <Link
-                href="/login"
-                className="text-primary hover:underline"
-                data-oid="y4pp80t"
-              >
+              <Link href="/login" className="text-primary hover:underline">
                 Sign in
               </Link>
             </p>

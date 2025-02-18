@@ -7,7 +7,9 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "test": "jest lib/ai.test.ts"
+    "test": "jest lib/ai.test.ts",
+    "clean": "rm -rf .next node_modules/.cache && npm install",
+    "dev:clean": "npm run clean && npm run dev"
   },
   "jest": {
     "testEnvironment": "node",
@@ -22,6 +24,7 @@
     "@langchain/core": "^0.3.39",
     "@langchain/google-genai": "^0.0.10",
     "@next/swc-wasm-nodejs": "13.5.1",
+    "@next/third-parties": "^15.1.7",
     "@radix-ui/react-accordion": "^1.2.0",
     "@radix-ui/react-alert-dialog": "^1.1.1",
     "@radix-ui/react-aspect-ratio": "^1.1.0",
@@ -59,6 +62,7 @@
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
     "cmdk": "^1.0.0",
+    "critters": "^0.0.20",
     "date-fns": "^3.6.0",
     "embla-carousel-react": "^8.3.0",
     "eslint-config-next": "13.5.1",
@@ -68,7 +72,7 @@
     "mammoth": "^1.6.0",
     "next": "^15.1.6",
     "next-themes": "^0.3.0",
-    "pdfjs-dist": "^4.0.379",
+    "pdfjs-dist": "^4.10.38",
     "postcss": "^8.5.1",
     "react": "18.2.0",
     "react-day-picker": "^8.10.1",
@@ -90,14 +94,13 @@
   "devDependencies": {
     "@babel/core": "^7.26.8",
     "@babel/preset-env": "^7.26.8",
-    "@babel/preset-typescript": "^7.14.5",: "^7.14.5",
-    "@types/jest": "^29.5.14",",
-    "babel-jest": "^29.7.0",.0",
+    "@babel/preset-typescript": "^7.14.5",
+    "@types/jest": "^29.5.14",
+    "babel-jest": "^29.7.0",
     "eslint": "^8.57.1",
     "eslint-plugin-react": "^7.37.4",
-    "eslint-plugin-react-hooks": "^5.1.0",hooks": "^5.1.0",
-    "install": "^0.13.0",.0",
-    "jest": "^29.7.0" "jest": "^29.7.0"
-  } }
-}}
-
+    "eslint-plugin-react-hooks": "^5.1.0",
+    "install": "^0.13.0",
+    "jest": "^29.7.0"
+  }
+}

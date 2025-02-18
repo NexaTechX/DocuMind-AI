@@ -12,7 +12,6 @@ const Drawer = ({
   <DrawerPrimitive.Root
     shouldScaleBackground={shouldScaleBackground}
     {...props}
-    data-oid="75hm3fe"
   />
 );
 
@@ -32,7 +31,6 @@ const DrawerOverlay = React.forwardRef<
     ref={ref}
     className={cn("fixed inset-0 z-50 bg-black/80", className)}
     {...props}
-    data-oid="1t0.sm0"
   />
 ));
 DrawerOverlay.displayName = DrawerPrimitive.Overlay.displayName;
@@ -41,8 +39,8 @@ const DrawerContent = React.forwardRef<
   React.ElementRef<typeof DrawerPrimitive.Content>,
   React.ComponentPropsWithoutRef<typeof DrawerPrimitive.Content>
 >(({ className, children, ...props }, ref) => (
-  <DrawerPortal data-oid="z8ma5j3">
-    <DrawerOverlay data-oid="2pl07i5" />
+  <DrawerPortal>
+    <DrawerOverlay />
     <DrawerPrimitive.Content
       ref={ref}
       className={cn(
@@ -50,12 +48,9 @@ const DrawerContent = React.forwardRef<
         className,
       )}
       {...props}
-      data-oid="9nk338-"
     >
-      <div
-        className="mx-auto mt-4 h-2 w-[100px] rounded-full bg-muted"
-        data-oid="wn9-:r3"
-      />
+      <div className="mx-auto mt-4 h-2 w-[100px] rounded-full bg-muted" />
+
       {children}
     </DrawerPrimitive.Content>
   </DrawerPortal>
@@ -69,7 +64,6 @@ const DrawerHeader = ({
   <div
     className={cn("grid gap-1.5 p-4 text-center sm:text-left", className)}
     {...props}
-    data-oid="4r1m5w_"
   />
 );
 
@@ -82,7 +76,6 @@ const DrawerFooter = ({
   <div
     className={cn("mt-auto flex flex-col gap-2 p-4", className)}
     {...props}
-    data-oid="ub_r8sk"
   />
 );
 
@@ -99,7 +92,6 @@ const DrawerTitle = React.forwardRef<
       className,
     )}
     {...props}
-    data-oid="i:.-8kx"
   />
 ));
 DrawerTitle.displayName = DrawerPrimitive.Title.displayName;
@@ -112,7 +104,6 @@ const DrawerDescription = React.forwardRef<
     ref={ref}
     className={cn("text-sm text-muted-foreground", className)}
     {...props}
-    data-oid="5br2es-"
   />
 ));
 DrawerDescription.displayName = DrawerPrimitive.Description.displayName;

@@ -1,8 +1,9 @@
-import "./globals.css";
+import { Analytics } from "@/components/analytics";
+import { ThemeProvider } from "@/components/theme-provider";
+import { Toaster } from "@/components/ui/toaster";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import { Toaster } from "@/components/ui/toaster";
-import { ThemeProvider } from "@/components/theme-provider";
+import "./globals.css";
 
 // Optimize font loading configuration
 const inter = Inter({
@@ -23,17 +24,18 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" suppressHydrationWarning data-oid="z.9ba51">
-      <body className={inter.className} data-oid="-o-68og">
+    <html lang="en" suppressHydrationWarning>
+      <head />
+      <body className={inter.className}>
         <ThemeProvider
           attribute="class"
-          defaultTheme="system"
+          defaultTheme="dark"
           enableSystem
           disableTransitionOnChange
-          data-oid="v77cf36"
         >
           {children}
-          <Toaster data-oid="tzs9u6u" />
+          <Toaster />
+          {process.env.NEXT_PUBLIC_GA_ID && <Analytics />}
         </ThemeProvider>
       </body>
     </html>

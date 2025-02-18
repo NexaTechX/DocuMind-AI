@@ -79,11 +79,9 @@ export default function BillingPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-background p-8" data-oid="fp_lh6h">
-        <div className="container mx-auto" data-oid=".j9r-iv">
-          <h1 className="text-2xl font-bold mb-8" data-oid="1d1pjbo">
-            Loading...
-          </h1>
+      <div className="min-h-screen bg-background p-8">
+        <div className="container mx-auto">
+          <h1 className="text-2xl font-bold mb-8">Loading...</h1>
         </div>
       </div>
     );
@@ -99,41 +97,31 @@ export default function BillingPage() {
     : (documentsUsed / documentQuota) * 100;
 
   return (
-    <div className="min-h-screen bg-background" data-oid="dueg-i.">
-      <div className="container mx-auto px-4 py-8" data-oid="v3mdhxu">
-        <h1 className="text-2xl font-bold mb-8" data-oid="x.o63c4">
-          Billing & Usage
-        </h1>
+    <div className="min-h-screen bg-background">
+      <div className="container mx-auto px-4 py-8">
+        <h1 className="text-2xl font-bold mb-8">Billing & Usage</h1>
 
-        <div className="grid gap-8 md:grid-cols-2" data-oid="6t9za:9">
+        <div className="grid gap-8 md:grid-cols-2">
           {/* Current Plan */}
-          <Card className="p-6" data-oid="twmn:58">
-            <div
-              className="flex items-start justify-between mb-4"
-              data-oid="ribsqdi"
-            >
-              <div data-oid="idwd4n9">
-                <h2 className="text-lg font-semibold mb-1" data-oid="4zdfgds">
-                  Current Plan
-                </h2>
-                <p className="text-muted-foreground" data-oid="u5rs14q">
+          <Card className="p-6">
+            <div className="flex items-start justify-between mb-4">
+              <div>
+                <h2 className="text-lg font-semibold mb-1">Current Plan</h2>
+                <p className="text-muted-foreground">
                   {currentPlan.description}
                 </p>
               </div>
-              <Package className="h-6 w-6 text-primary" data-oid="oik1dcx" />
+              <Package className="h-6 w-6 text-primary" />
             </div>
 
-            <div className="mb-6" data-oid="-57897q">
-              <div className="text-3xl font-bold mb-2" data-oid="2zhz.lo">
+            <div className="mb-6">
+              <div className="text-3xl font-bold mb-2">
                 {currentPlan.name}
-                <span
-                  className="text-base font-normal text-muted-foreground ml-2"
-                  data-oid="elnk-vq"
-                >
+                <span className="text-base font-normal text-muted-foreground ml-2">
                   ${currentPlan.price}/month
                 </span>
               </div>
-              <p className="text-sm text-muted-foreground" data-oid="kh6_lnr">
+              <p className="text-sm text-muted-foreground">
                 {profile?.subscription_status === "active"
                   ? `Renews on ${new Date(profile?.subscription_period_end).toLocaleDateString()}`
                   : "No active subscription"}
@@ -141,69 +129,48 @@ export default function BillingPage() {
             </div>
 
             {profile?.subscription_tier === PLANS.FREE ? (
-              <Link href="/pricing" data-oid="jfgtibr">
-                <Button className="w-full" data-oid="rgxeafd">
-                  <ArrowUpCircle className="h-4 w-4 mr-2" data-oid="8egoz9k" />
+              <Link href="/pricing">
+                <Button className="w-full">
+                  <ArrowUpCircle className="h-4 w-4 mr-2" />
                   Upgrade Plan
                 </Button>
               </Link>
             ) : (
-              <Button
-                onClick={handleManageSubscription}
-                className="w-full"
-                data-oid="53supqr"
-              >
-                <CreditCard className="h-4 w-4 mr-2" data-oid="wxgm519" />
+              <Button onClick={handleManageSubscription} className="w-full">
+                <CreditCard className="h-4 w-4 mr-2" />
                 Manage Subscription
               </Button>
             )}
           </Card>
 
           {/* Usage Stats */}
-          <Card className="p-6" data-oid="fw49e6m">
-            <div
-              className="flex items-start justify-between mb-4"
-              data-oid="fye6q-5"
-            >
-              <div data-oid="ea-z2nv">
-                <h2 className="text-lg font-semibold mb-1" data-oid="fbp1of.">
-                  Document Usage
-                </h2>
-                <p className="text-muted-foreground" data-oid="2x6k:wy">
+          <Card className="p-6">
+            <div className="flex items-start justify-between mb-4">
+              <div>
+                <h2 className="text-lg font-semibold mb-1">Document Usage</h2>
+                <p className="text-muted-foreground">
                   Track your document analysis usage
                 </p>
               </div>
-              <FileBox className="h-6 w-6 text-primary" data-oid="bzazh0k" />
+              <FileBox className="h-6 w-6 text-primary" />
             </div>
 
-            <div className="space-y-4" data-oid="se6ajk_">
-              <div data-oid="m_j9ypg">
-                <div className="flex justify-between mb-2" data-oid="655d324">
-                  <span className="text-sm font-medium" data-oid="6nldv64">
-                    Documents Used
-                  </span>
-                  <span
-                    className="text-sm text-muted-foreground"
-                    data-oid="c0waiy9"
-                  >
+            <div className="space-y-4">
+              <div>
+                <div className="flex justify-between mb-2">
+                  <span className="text-sm font-medium">Documents Used</span>
+                  <span className="text-sm text-muted-foreground">
                     {documentsUsed} /{" "}
                     {isUnlimited ? "Unlimited" : documentQuota}
                   </span>
                 </div>
                 {!isUnlimited && (
-                  <Progress
-                    value={usagePercentage}
-                    className="h-2"
-                    data-oid="r6tepbc"
-                  />
+                  <Progress value={usagePercentage} className="h-2" />
                 )}
               </div>
 
               {!isUnlimited && usagePercentage > 80 && (
-                <div
-                  className="bg-yellow-100 dark:bg-yellow-900/30 text-yellow-800 dark:text-yellow-200 p-3 rounded-md text-sm"
-                  data-oid="vm0:_y0"
-                >
+                <div className="bg-yellow-100 dark:bg-yellow-900/30 text-yellow-800 dark:text-yellow-200 p-3 rounded-md text-sm">
                   <p>
                     You&apos;re approaching your document limit. Consider
                     upgrading your plan for unlimited documents.
@@ -212,12 +179,8 @@ export default function BillingPage() {
               )}
 
               {profile?.subscription_tier === PLANS.FREE && (
-                <Link href="/pricing" data-oid="q8ht8hg">
-                  <Button
-                    variant="outline"
-                    className="w-full mt-4"
-                    data-oid="xopnqgr"
-                  >
+                <Link href="/pricing">
+                  <Button variant="outline" className="w-full mt-4">
                     Upgrade for Unlimited Documents
                   </Button>
                 </Link>

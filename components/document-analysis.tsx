@@ -116,66 +116,39 @@ export function DocumentAnalysis({ content }: DocumentAnalysisProps) {
   };
 
   return (
-    <div className="space-y-6" data-oid="nd6zu4.">
+    <div className="space-y-6">
       {/* Analysis Section */}
-      <Card className="p-6" data-oid="::a_75l">
-        <div
-          className="flex items-center justify-between mb-4"
-          data-oid="-raxduc"
-        >
-          <div className="flex items-center gap-2" data-oid="j:0b-pq">
-            <Brain className="h-5 w-5 text-primary" data-oid=":ja2jqs" />
-            <h2 className="text-lg font-semibold" data-oid="soxmxi0">
-              AI Analysis
-            </h2>
+      <Card className="p-6">
+        <div className="flex items-center justify-between mb-4">
+          <div className="flex items-center gap-2">
+            <Brain className="h-5 w-5 text-primary" />
+            <h2 className="text-lg font-semibold">AI Analysis</h2>
           </div>
           {loading.analysis ? (
-            <Button disabled data-oid="fr59s6m">
-              Analyzing...
-            </Button>
+            <Button disabled>Analyzing...</Button>
           ) : (
-            <Button onClick={() => {}} data-oid="3z7fm_5">
-              Analyze
-            </Button>
+            <Button onClick={() => {}}>Analyze</Button>
           )}
         </div>
         {analysis && (
-          <div className="space-y-4" data-oid="34crtx7">
-            <div data-oid="0ht3747">
-              <h3 className="font-medium mb-2" data-oid="b-q3fxk">
-                Summary
-              </h3>
-              <p className="text-muted-foreground" data-oid="nz-knqn">
-                {analysis.summary}
-              </p>
+          <div className="space-y-4">
+            <div>
+              <h3 className="font-medium mb-2">Summary</h3>
+              <p className="text-muted-foreground">{analysis.summary}</p>
             </div>
-            <div data-oid="94uwgh2">
-              <h3 className="font-medium mb-2" data-oid="8q10709">
-                Key Topics
-              </h3>
-              <ul
-                className="list-disc list-inside text-muted-foreground"
-                data-oid="iaegoha"
-              >
+            <div>
+              <h3 className="font-medium mb-2">Key Topics</h3>
+              <ul className="list-disc list-inside text-muted-foreground">
                 {analysis.keyTopics.map((topic, index) => (
-                  <li key={index} data-oid=":8wgh41">
-                    {topic}
-                  </li>
+                  <li key={index}>{topic}</li>
                 ))}
               </ul>
             </div>
-            <div data-oid="3mpdl32">
-              <h3 className="font-medium mb-2" data-oid="si5m-sx">
-                Important Insights
-              </h3>
-              <ul
-                className="list-disc list-inside text-muted-foreground"
-                data-oid="iroxe76"
-              >
+            <div>
+              <h3 className="font-medium mb-2">Important Insights</h3>
+              <ul className="list-disc list-inside text-muted-foreground">
                 {analysis.insights.map((insight, index) => (
-                  <li key={index} data-oid="hc9zeu:">
-                    {insight}
-                  </li>
+                  <li key={index}>{insight}</li>
                 ))}
               </ul>
             </div>
@@ -184,85 +157,51 @@ export function DocumentAnalysis({ content }: DocumentAnalysisProps) {
       </Card>
 
       {/* Summary Section */}
-      <Card className="p-6" data-oid="oe09c1c">
-        <div
-          className="flex items-center justify-between mb-4"
-          data-oid="wrq.zy."
-        >
-          <div className="flex items-center gap-2" data-oid="m494lwu">
-            <FileText className="h-5 w-5 text-primary" data-oid="ic6ro95" />
-            <h2 className="text-lg font-semibold" data-oid="01xx0:v">
-              Summary
-            </h2>
+      <Card className="p-6">
+        <div className="flex items-center justify-between mb-4">
+          <div className="flex items-center gap-2">
+            <FileText className="h-5 w-5 text-primary" />
+            <h2 className="text-lg font-semibold">Summary</h2>
           </div>
-          <div className="flex items-center gap-2" data-oid="..w0qek">
+          <div className="flex items-center gap-2">
             <Select
               value={summaryLength}
               onValueChange={(value: "short" | "medium" | "long") =>
                 setSummaryLength(value)
               }
-              data-oid="6p82:ca"
             >
-              <SelectTrigger className="w-32" data-oid="sj63j.v">
-                <SelectValue placeholder="Length" data-oid="8uzadj4" />
+              <SelectTrigger className="w-32">
+                <SelectValue placeholder="Length" />
               </SelectTrigger>
-              <SelectContent data-oid="zjxhsek">
-                <SelectItem value="short" data-oid="_nvf2e_">
-                  Short
-                </SelectItem>
-                <SelectItem value="medium" data-oid="kkavdgz">
-                  Medium
-                </SelectItem>
-                <SelectItem value="long" data-oid="nj7qg0g">
-                  Long
-                </SelectItem>
+              <SelectContent>
+                <SelectItem value="short">Short</SelectItem>
+                <SelectItem value="medium">Medium</SelectItem>
+                <SelectItem value="long">Long</SelectItem>
               </SelectContent>
             </Select>
-            <Button
-              onClick={handleGenerateSummary}
-              disabled={loading.summary}
-              data-oid="_ah6m-7"
-            >
+            <Button onClick={handleGenerateSummary} disabled={loading.summary}>
               {loading.summary ? "Generating..." : "Generate"}
             </Button>
           </div>
         </div>
-        {summary && (
-          <p className="text-muted-foreground" data-oid="e0-ws9_">
-            {summary}
-          </p>
-        )}
+        {summary && <p className="text-muted-foreground">{summary}</p>}
       </Card>
 
       {/* Key Points Section */}
-      <Card className="p-6" data-oid="x3160un">
-        <div
-          className="flex items-center justify-between mb-4"
-          data-oid="-toi4dv"
-        >
-          <div className="flex items-center gap-2" data-oid=":7pr_8v">
-            <List className="h-5 w-5 text-primary" data-oid="9eia8ea" />
-            <h2 className="text-lg font-semibold" data-oid="_utj9u3">
-              Key Points
-            </h2>
+      <Card className="p-6">
+        <div className="flex items-center justify-between mb-4">
+          <div className="flex items-center gap-2">
+            <List className="h-5 w-5 text-primary" />
+            <h2 className="text-lg font-semibold">Key Points</h2>
           </div>
-          <Button
-            onClick={handleExtractKeyPoints}
-            disabled={loading.keyPoints}
-            data-oid="tffpbtc"
-          >
+          <Button onClick={handleExtractKeyPoints} disabled={loading.keyPoints}>
             {loading.keyPoints ? "Extracting..." : "Extract"}
           </Button>
         </div>
         {keyPoints.length > 0 && (
-          <ul
-            className="list-disc list-inside text-muted-foreground"
-            data-oid="5f-quqy"
-          >
+          <ul className="list-disc list-inside text-muted-foreground">
             {keyPoints.map((point, index) => (
-              <li key={index} data-oid="rxf_:e9">
-                {point}
-              </li>
+              <li key={index}>{point}</li>
             ))}
           </ul>
         )}

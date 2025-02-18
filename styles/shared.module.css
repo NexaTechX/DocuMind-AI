@@ -1,0 +1,60 @@
+.flexCenter {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.flexBetween {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.gridContainer {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.chartContainer {
+  aspect-ratio: 16/9;
+  justify-content: center;
+  font-size: 0.75rem;
+}
+
+.chartTooltip {
+  min-width: 8rem;
+  display: grid;
+  gap: 0.375rem;
+  border-radius: 0.5rem;
+  border: 1px solid var(--border-color);
+  background: var(--background);
+  padding: 0.625rem 1rem;
+  font-size: 0.75rem;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+}
+
+.tooltipIndicator {
+  height: 0.625rem;
+  width: 0.625rem;
+  border-radius: 2px;
+  background-color: var(--indicator-color);
+}
+
+.tooltipContent {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.tooltipValue {
+  font-family: monospace;
+  font-weight: 500;
+}
+
+.legendContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}

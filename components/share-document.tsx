@@ -67,32 +67,30 @@ export function ShareDocument({ documentId }: ShareDocumentProps) {
   };
 
   return (
-    <Dialog data-oid="ai66v6g">
-      <DialogTrigger asChild data-oid="kf5vhmt">
-        <Button variant="outline" size="sm" data-oid="e94k:sz">
-          <Share2 className="h-4 w-4 mr-2" data-oid="4cfx4af" />
+    <Dialog>
+      <DialogTrigger asChild>
+        <Button variant="outline" size="sm">
+          <Share2 className="h-4 w-4 mr-2" />
           Share
         </Button>
       </DialogTrigger>
-      <DialogContent data-oid="-8f9ceq">
-        <DialogHeader data-oid="tutx9he">
-          <DialogTitle data-oid="pg8jih2">Share Document</DialogTitle>
+      <DialogContent>
+        <DialogHeader>
+          <DialogTitle>Share Document</DialogTitle>
         </DialogHeader>
-        <div className="space-y-4 py-4" data-oid="ixw3c82">
-          <div className="space-y-2" data-oid="3v.4jit">
+        <div className="space-y-4 py-4">
+          <div className="space-y-2">
             <Input
               type="email"
               placeholder="Enter email address"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              data-oid="1e2ofoi"
             />
           </div>
           <Button
             onClick={handleShare}
             disabled={loading || !email}
             className="w-full"
-            data-oid="ak6h_ve"
           >
             {loading ? "Sharing..." : "Share Document"}
           </Button>

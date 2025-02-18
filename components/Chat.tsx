@@ -33,6 +33,7 @@ export const Chat = ({ document }) => {
           onChange={(e) => setInput(e.target.value)}
           placeholder="Ask a question..."
         />
+
         <button onClick={handleSend}>Send</button>
       </div>
     </div>

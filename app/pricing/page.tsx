@@ -1,177 +1,212 @@
 "use client";
 
+import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { useToast } from "@/hooks/use-toast";
-import { PLANS, PRICING } from "@/lib/stripe";
-import { supabase } from "@/lib/supabase";
-import { Check } from "lucide-react";
-import { useRouter, useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react";
+import { Brain, Check, Sparkles, Star, Zap } from "lucide-react";
+import Link from "next/link";
+import { useState } from "react";
+
+const plans = [
+  {
+    name: "Free",
+    description: "Perfect for trying out DocuMind AI",
+    price: { monthly: 0, annual: 0 },
+    features: [
+      "5 documents per month",
+      "Basic AI analysis",
+      "Standard support",
+      "1GB storage",
+      "Export to PDF",
+    ],
+    badge: "",
+    ctaText: "Get Started",
+    icon: Brain,
+  },
+  {
+    name: "Pro",
+    description: "Best for professionals and small teams",
+    price: { monthly: 29, annual: 290 },
+    features: [
+      "Unlimited documents",
+      "Advanced AI analysis",
+      "Priority support",
+      "10GB storage",
+      "Export to multiple formats",
+      "Team collaboration",
+      "API access",
+      "Custom branding",
+    ],
+    badge: "Most Popular",
+    ctaText: "Start Free Trial",
+    icon: Star,
+  },
+  {
+    name: "Enterprise",
+    description: "For organizations with advanced needs",
+    price: { monthly: 99, annual: 990 },
+    features: [
+      "Everything in Pro",
+      "Unlimited storage",
+      "24/7 priority support",
+      "Advanced security",
+      "Custom AI models",
+      "Dedicated account manager",
+      "SSO integration",
+      "Custom API limits",
+    ],
+    badge: "Ultimate",
+    ctaText: "Contact Sales",
+    icon: Sparkles,
+  },
+];
 
 export default function PricingPage() {
-  const [loading, setLoading] = useState(false);
-  const { toast } = useToast();
-  const router = useRouter();
-  const searchParams = useSearchParams();
-
-  // Show toast for Stripe checkout result
-  useEffect(() => {
-    if (searchParams?.get("success")) {
-      toast({
-        title: "Success!",
-        description: "Your subscription has been activated.",
-      });
-    }
-    if (searchParams?.get("canceled")) {
-      toast({
-        title: "Canceled",
-        description: "Subscription was not completed.",
-        variant: "destructive",
-      });
-    }
-  }, [searchParams, toast]);
-
-  const handleSubscribe = async (plan: keyof typeof PLANS) => {
-    setLoading(true);
-    try {
-      const {
-        data: { session },
-      } = await supabase.auth.getSession();
-      if (!session) {
-        router.push("/login");
-        return;
-      }
-
-      if (plan === PLANS.FREE) {
-        const { error } = await supabase
-          .from("profiles")
-          .update({
-            subscription_tier: PLANS.FREE,
-            subscription_status: "active",
-            document_quota: 5,
-          })
-          .eq("id", session.user.id);
-
-        if (error) throw error;
-
-        toast({
-          title: "Success",
-          description: "You're now on the Free plan",
-        });
-
-        router.push("/dashboard");
-        return;
-      }
-
-      // For paid plans, redirect to Stripe checkout
-      const response = await fetch("/api/stripe/checkout", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          plan: PRICING[plan],
-          userId: session.user.id,
-        }),
-      });
-
-      const { url, error } = await response.json();
-      if (error) throw new Error(error);
-
-      // Redirect to Stripe Checkout
-      window.location.href = url;
-    } catch (error: any) {
-      toast({
-        title: "Error",
-        description: error.message,
-        variant: "destructive",
-      });
-    } finally {
-      setLoading(false);
-    }
-  };
+  const [annual, setAnnual] = useState(false);
 
   return (
-    <div className="min-h-screen bg-background" data-oid="7cemfyd">
-      <header className="border-b" data-oid="kl1dk53">
-        <div
-          className="container mx-auto px-4 h-16 flex items-center"
-          data-oid="vv7kd.b"
-        >
-          <h1 className="text-xl font-bold" data-oid="2soe-tm">
-            Pricing Plans
-          </h1>
+    <div className="flex min-h-screen flex-col bg-black text-white">
+      <header className="sticky top-0 z-50 border-b border-gray-800 bg-black/95 backdrop-blur">
+        <div className="container mx-auto flex h-16 items-center justify-between px-4">
+          <Link href="/" className="flex items-center gap-2">
+            <Brain className="h-8 w-8 text-blue-500" />
+            <span className="text-2xl font-bold bg-gradient-to-r from-blue-500 to-purple-500 bg-clip-text text-transparent">
+              DocuMind AI
+            </span>
+          </Link>
+          <div className="flex items-center gap-4">
+            <Link href="/login">
+              <Button
+                variant="ghost"
+                className="hover:text-blue-400 transition"
+              >
+                Login
+              </Button>
+            </Link>
+            <Link href="/signup">
+              <Button className="bg-blue-500 hover:bg-blue-600 text-white transition-all transform hover:scale-105">
+                Start Free Trial
+              </Button>
+            </Link>
+          </div>
         </div>
       </header>
 
-      <main className="container mx-auto px-4 py-12" data-oid="ar4oepr">
-        <div className="text-center mb-12" data-oid="oj7el5z">
-          <h2 className="text-3xl font-bold mb-4" data-oid="e:h_nu-">
-            Choose Your Plan
-          </h2>
-          <p className="text-muted-foreground" data-oid="vmn0wj-">
-            Select the perfect plan for your document analysis needs
-          </p>
-        </div>
-
-        <div
-          className="grid gap-8 md:grid-cols-3 max-w-5xl mx-auto"
-          data-oid="hrs6wwb"
-        >
-          {Object.entries(PRICING).map(([plan, details]) => (
-            <div
-              key={plan}
-              className="border rounded-lg p-6 bg-card flex flex-col"
-              data-oid="yz8o06b"
-            >
-              <div className="mb-6" data-oid="23400fz">
-                <h3 className="text-2xl font-bold mb-2" data-oid="01y6n-y">
-                  {details.name}
-                </h3>
-                <p className="text-muted-foreground mb-4" data-oid="w988h67">
-                  {details.description}
-                </p>
-                <div className="text-3xl font-bold" data-oid="qszakd7">
-                  ${details.price}
+      <main className="flex-1">
+        <section className="py-20">
+          <div className="container mx-auto px-4">
+            <div className="text-center mb-16">
+              <h1 className="text-5xl font-bold mb-6 bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
+                Simple, Transparent Pricing
+              </h1>
+              <p className="text-xl text-gray-400 mb-8">
+                Choose the perfect plan for your needs
+              </p>
+              <div className="flex justify-center items-center gap-4">
+                <span className={annual ? "text-gray-400" : "text-white"}>
+                  Monthly
+                </span>
+                <button
+                  onClick={() => setAnnual(!annual)}
+                  className={`relative w-16 h-8 rounded-full transition-colors ${
+                    annual ? "bg-blue-500" : "bg-gray-600"
+                  }`}
+                >
                   <span
-                    className="text-base font-normal text-muted-foreground"
-                    data-oid="xrs7.2l"
+                    className={`absolute top-1 left-1 w-6 h-6 rounded-full bg-white transition-transform transform ${
+                      annual ? "translate-x-8" : ""
+                    }`}
+                  />
+                </button>
+                <span className={annual ? "text-white" : "text-gray-400"}>
+                  Annual{" "}
+                  <Badge
+                    variant="secondary"
+                    className="ml-2 bg-blue-500/10 text-blue-400"
                   >
-                    /month
-                  </span>
-                </div>
+                    Save 20%
+                  </Badge>
+                </span>
               </div>
-
-              <ul className="space-y-3 mb-8 flex-grow" data-oid="mxzmqs5">
-                {details.features.map((feature, index) => (
-                  <li
-                    key={index}
-                    className="flex items-center"
-                    data-oid="vg30me3"
-                  >
-                    <Check
-                      className="h-5 w-5 text-green-500 mr-2 flex-shrink-0"
-                      data-oid="n0wi8l6"
-                    />
-
-                    <span data-oid="_ax_w3g">{feature}</span>
-                  </li>
-                ))}
-              </ul>
-
-              <Button
-                onClick={() => handleSubscribe(plan as keyof typeof PLANS)}
-                disabled={loading}
-                className="w-full"
-                variant={plan === PLANS.PRO ? "default" : "outline"}
-                data-oid="vlril0l"
-              >
-                {loading ? "Processing..." : `Get ${details.name}`}
-              </Button>
             </div>
-          ))}
-        </div>
+
+            <div className="grid gap-8 md:grid-cols-3">
+              {plans.map((plan) => (
+                <div
+                  key={plan.name}
+                  className="relative group rounded-xl border border-gray-800 bg-black p-8 hover:border-blue-500/50 transition-all duration-300"
+                >
+                  <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-blue-500/5 to-purple-500/5 opacity-0 group-hover:opacity-100 transition-opacity" />
+                  <div className="relative">
+                    <div className="flex justify-between items-start mb-6">
+                      <div>
+                        <plan.icon className="h-8 w-8 text-blue-500 mb-2" />
+                        <h3 className="text-2xl font-bold">{plan.name}</h3>
+                        <p className="text-gray-400 mt-2">{plan.description}</p>
+                      </div>
+                      {plan.badge && (
+                        <Badge
+                          variant="secondary"
+                          className="bg-blue-500/10 text-blue-400"
+                        >
+                          {plan.badge}
+                        </Badge>
+                      )}
+                    </div>
+                    <div className="mb-6">
+                      <div className="flex items-baseline">
+                        <span className="text-4xl font-bold">
+                          ${annual ? plan.price.annual : plan.price.monthly}
+                        </span>
+                        <span className="text-gray-400 ml-2">
+                          /{annual ? "year" : "month"}
+                        </span>
+                      </div>
+                    </div>
+                    <Button className="w-full mb-8 bg-blue-500 hover:bg-blue-600 text-white transition-all transform hover:scale-105">
+                      {plan.name === "Pro" && <Zap className="mr-2 h-4 w-4" />}
+                      {plan.ctaText}
+                    </Button>
+                    <ul className="space-y-4">
+                      {plan.features.map((feature) => (
+                        <li key={feature} className="flex items-center gap-3">
+                          <Check className="h-5 w-5 text-blue-500" />
+                          <span className="text-gray-300">{feature}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* FAQ Section */}
+        <section className="py-20 bg-gradient-to-b from-black to-gray-900">
+          <div className="container mx-auto px-4">
+            <h2 className="text-3xl font-bold text-center mb-12 bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
+              Frequently Asked Questions
+            </h2>
+            {/* Add FAQ content here */}
+          </div>
+        </section>
       </main>
+
+      <footer className="border-t border-gray-800 py-8 bg-black">
+        <div className="container mx-auto px-4">
+          <div className="flex flex-col md:flex-row justify-between items-center gap-4">
+            <div className="flex items-center gap-2">
+              <Brain className="h-6 w-6 text-blue-500" />
+              <span className="font-bold bg-gradient-to-r from-blue-500 to-purple-500 bg-clip-text text-transparent">
+                DocuMind AI
+              </span>
+            </div>
+            <p className="text-sm text-gray-400">
+              © {new Date().getFullYear()} DocuMind AI. All rights reserved.
+            </p>
+          </div>
+        </div>
+      </footer>
     </div>
   );
 }

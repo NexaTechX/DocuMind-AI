@@ -1,14 +1,10 @@
 import mammoth from 'mammoth';
-import * as PDFJS from 'pdfjs-dist';
-import { supabase } from './supabase';
+import { getDocument, GlobalWorkerOptions, version } from 'pdfjs-dist';
 
-// Initialize PDF.js worker with a more reliable CDN URL
-// Try a different CDN URL
-const PDFJS_WORKER_URL = `https://unpkg.com/pdfjs-dist@4.10.38/build/pdf.worker.min.js`;
-
-// Initialize PDF.js worker once
+// Set the PDF.js worker source
 if (typeof window !== 'undefined') {
-  PDFJS.GlobalWorkerOptions.workerSrc = PDFJS_WORKER_URL;
+  // Use a version-specific worker
+  GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${version}/pdf.worker.min.js`;
 }
 
 export async function parseDocument(file: File): Promise<{ content: string; preview: string }> {
@@ -46,8 +42,7 @@ export async function parseDocument(file: File): Promise<{ content: string; prev
 async function parsePDF(file: File): Promise<{ content: string; preview: string }> {
   try {
     const arrayBuffer = await file.arrayBuffer();
-    const loadingTask = PDFJS.getDocument({ data: arrayBuffer });
-    const pdf = await loadingTask.promise;
+    const pdf = await getDocument({ data: arrayBuffer }).promise;
     
     let fullText = '';
     let previewText = '';
@@ -109,18 +104,20 @@ async function parseText(file: File): Promise<{ content: string; preview: string
   }
 }
 
-export async function uploadDocument(file: File, userId: string) {
-  const fileExt = file.name.split(".").pop();
-  const fileName = `${userId}/${Date.now()}.${fileExt}`;
-  const { data, error } = await supabase.storage
-    .from("documents")
-    .upload(fileName, file);
-
-  if (error) {
-    throw error;
+export async function uploadDocument(file: File) {
+  try {
+    const { content, preview } = await parseDocument(file);
+    return {
+      success: true,
+      message: "Document parsed successfully",
+      content,
+      preview,
+    };
+  } catch (error: any) {
+    console.error("Error uploading document:", error);
+    return {
+      success: false,
+      message: error.message,
+    };
   }
-
-  const preview = URL.createObjectURL(file);
-
-  return { data, preview };
 }
