@@ -20,7 +20,7 @@
   "dependencies": {
     "@google/generative-ai": "^0.2.1",
     "@hookform/resolvers": "^3.9.0",
-    "@langchain/community": "^0.3.29",
+    "@langchain/community": "^1.1.14",
     "@langchain/core": "^0.3.39",
     "@langchain/google-genai": "^0.0.10",
     "@next/swc-wasm-nodejs": "13.5.1",
